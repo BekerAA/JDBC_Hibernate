@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public final class GetProperties {
-
+public class GetProperties {
     private static final Properties PROPERTIES  = new Properties();
 
     static {

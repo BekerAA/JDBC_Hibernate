@@ -1,23 +1,21 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.service.UserServiceImpl;
-import jm.task.core.jdbc.service.UserService;
-import java.util.List;
+
+import jm.task.core.jdbc.util.Util;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 public class Main {
     static void main() {
-        UserService userServie = new UserServiceImpl();
-        userServie.createUsersTable();
-        userServie.saveUser("Andrey", "Pushkov", (byte) 23);
-        userServie.saveUser("Lara", "Akopin", (byte) 21);
-        userServie.saveUser("Alina", "Pushkova", (byte) 18);
-        userServie.saveUser("Misha", "Abakumov", (byte) 25);
-        List<User> users = userServie.getAllUsers();
-        for ( User user: users){
-            System.out.println(user.toString());
+
+        try (SessionFactory sessionFactory = Util.getSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            System.out.println("-".repeat(100) + "\nПодключение к БД: УСПЕШНО!\n" + "-".repeat(100));
+
+            session.getTransaction().commit();
         }
-        userServie.cleanUsersTable();
-        userServie.dropUsersTable();
     }
 }
