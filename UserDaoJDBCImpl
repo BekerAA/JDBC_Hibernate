@@ -1,0 +1,17 @@
+[33mcommit f97f206b4f6c723f52ad8795fae25f4536e7d21e[m
+Author: Andrey Pushkov <andrey.pushkov.99@bk.ru>
+Date:   Thu Oct 15 01:50:49 2026 +0300
+
+    Задание JDBC 3 попытка
+
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex c10974b..09064f1 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -37,4 +37,4 @@[m [mbuild/[m
+ [m
+ ### Mac OS ###[m
+ .DS_Store[m
+[31m-.idea/[m
+\ No newline at end of file[m
+[32m+[m[32m.idea/src/main/resources/[m
