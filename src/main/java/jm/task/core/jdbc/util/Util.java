@@ -1,5 +1,7 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -23,17 +25,32 @@ public final class Util {
     }
 
     //---------------------------------HIBERNATE---------------------------------
-    public static SessionFactory getSessionFactory(){
-        Configuration configuration = new Configuration();
-        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/tables");
-        configuration.setProperty("hibernate.connection.username", "andrey");
-        configuration.setProperty("hibernate.connection.password", "14555555");
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.format_sql", "true");
-        return configuration.buildSessionFactory();
+
+    private static final SessionFactory sessionFactory;
+
+    static {
+        try {
+
+            Configuration configuration = new Configuration();
+            configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
+            configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/tables");
+            configuration.setProperty("hibernate.connection.username", "andrey");
+            configuration.setProperty("hibernate.connection.password", "14555555");
+            configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+            configuration.setProperty("hibernate.show_sql", "true");
+            configuration.setProperty("hibernate.format_sql", "true");
+            configuration.addAnnotatedClass(User.class);
+
+            sessionFactory = configuration.buildSessionFactory();
+        }catch (Exception e) {
+            throw new RuntimeException("Не удалось создать SessionFactory", e);
+        }
     }
 
+    public static Session getSession(){
+        return sessionFactory.openSession();
+    }
+
+    //---------------------------------Конструктор---------------------------------
     public Util(){}
 }
